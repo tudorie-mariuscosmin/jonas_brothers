@@ -1,117 +1,111 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
+    <q-header class="bg-white text-grey-10" bordered>
+      <q-toolbar class="constrain">
         <q-btn
-          flat
+          class="large-screen-only q-mr-sm"
+          icon="eva-flash-outline"
+          size="18px"
           dense
+          flat
           round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
         />
-
-        <q-toolbar-title>
-          Quasar App
+        <q-separator class="large-screen-only" vertical spaced />
+        <q-toolbar-title class="text-supermarcado-one">
+          Open
+          <p class="titleN">N'</p>
+          Open
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn
+          class="large-screen-only"
+          icon="eva-home-outline"
+          size="18px"
+          to="/"
+          dense
+          flat
+          round
+        />
+        <q-separator vertical spaced />
+        <q-btn
+          @click="logout()"
+          icon="eva-log-out-outline"
+          size="18px"
+          dense
+          flat
+          round
+        />
       </q-toolbar>
     </q-header>
+    <q-footer class="bg-white small-screen-only" bordered>
+      <q-tabs
+        class="text-grey-10"
+        active-color="black"
+        indicator-color="primary"
+      >
+        <q-route-tab to="/" icon="eva-home-outline" />
+        <q-route-tab to="/recipe" icon="eva-flash-outline" />
+      </q-tabs>
+    </q-footer>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
-    <q-page-container>
+    <q-page-container class="bg-grey-1">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
+import { LocalStorage } from "quasar";
+export default {
+  name: "MainLayout",
+  data() {
+    return {};
+  },
+  methods: {
+    logout() {
+      this.$router.push("/login");
+      // this.$axios
+      //   .get(`${process.env.API}/api/auth/logout`)
+      //   .then(response => {
+      //     this.$q.notify({
+      //       color: "green",
+      //       message: response.data.message,
+      //       icon: "arrow_forward"
+      //     });
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+      //     LocalStorage.set("loggedIn", false);
+      //     this.$router.push("/login");
+      //   })
+      //   .catch(error => {
+      //     this.$q.notify({
+      //       color: "negative",
 
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      //       message: error.response.data.message,
+      //       icon: "report_problem"
+      //     });
+      //   });
     }
   }
-})
+};
 </script>
+
+<style lang="sass">
+.titleN
+  margin:0
+  padding:0 0.3em
+  display: inline-block
+  color: black
+  background-color: $primary
+  border-radius:100%
+
+.q-toolbar
+  @media (min-width: $breakpoint-sm-min)
+    height: 77px
+.q-toolbar__title
+  font-size: 30px
+  @media (max-width: $breakpoint-xs-max)
+    text-align: center
+
+.q-footer
+  .q-tab__icon
+    font-size: 30px
+</style>
