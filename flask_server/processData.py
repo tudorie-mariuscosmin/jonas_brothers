@@ -42,5 +42,3 @@ def subreddit_recommender(sub_name):
     else:
         return "No subreddits found. Please check your input"
 
-
-print(subreddit_recommender("AskReddit"))

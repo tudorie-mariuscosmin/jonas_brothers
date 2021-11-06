@@ -7,8 +7,9 @@ app = Flask(__name__)
 @app.route('/recommendations/<subreddit>')
 def recomandSubreddit(subreddit):
     val = subreddit_recommender(subreddit)
-    print(val)
-    return val;
+    response = Flask.response_class(val.to_json())
+    response.headers["Content-Type"] = "application/json"
+    return response
 
 
 if __name__ == '__main__':
