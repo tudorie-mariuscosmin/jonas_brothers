@@ -4,6 +4,7 @@
       class="my-card q-mb-md"
       flat
       bordered
+      data-aos="fade-right"
     >
       <q-item>
         <q-item-section avatar>
