@@ -13,18 +13,24 @@ app.get('/api/recommendations', async (req, res) => {
     try {
         const subsribed = await Subreddit.find()
         for (let element of subsribed) {
-            const { data } = await axios.get(`http://localhost:5000/recommendations/${element.name}`)
+            try {
+                const { data } = await axios.get(`http://localhost:5000/recommendations/${element.name}`)
 
-            const { Subreddit, Distance } = data
-            let result = Object.keys(Subreddit).map(key => {
-                return {
-                    subreddit: Subreddit[key],
-                    distance: Distance[key]
-                }
-            })
+                const { Subreddit, Distance } = data
+                let result = Object.keys(Subreddit).map(key => {
+                    return {
+                        subreddit: Subreddit[key],
+                        distance: Distance[key],
+                        subPhoto: element.photo
+                    }
+                })
 
-            result = result.sort((x, y) => x.distance - y.distance).slice(0, 2)
-            results.push(...result)
+                result = result.sort((x, y) => x.distance - y.distance).slice(0, 2)
+                results.push(...result)
+            } catch (err) {
+                console.log(err)
+            }
+
         }
         let posts = []
         for (result of results) {
@@ -35,7 +41,9 @@ app.get('/api/recommendations', async (req, res) => {
                     return {
                         subreddit: data.subreddit,
                         title: data.title,
-                        photo: data.url_overridden_by_dest
+                        photo: data.url_overridden_by_dest,
+                        isRecommended: true,
+                        subPhoto: result.subPhoto
                     }
                 })
                 posts.push(...post)
@@ -54,6 +62,41 @@ app.get('/api/recommendations', async (req, res) => {
         res.status(404).json("not_found")
     }
 })
+
+app.get('/api/posts', async (req, res) => {
+    try {
+        const subsribed = await Subreddit.find()
+        let posts = []
+        for (sub of subsribed) {
+            try {
+                const { data: { data: { children } } } = await axios.get(`https://www.reddit.com/r/${sub.name}/top.json?limit=3`)
+                let post = children.map(child => {
+                    const { data } = child
+                    return {
+                        subreddit: data.subreddit,
+                        title: data.title,
+                        photo: data.url_overridden_by_dest || null,
+                        isRecommended: false,
+                        subPhoto: sub.photo
+                    }
+                })
+                posts.push(...post)
+
+            } catch (err) {
+                console.warn(err)
+            }
+
+        }
+        res.json(posts)
+
+    } catch (err) {
+        console.log(err)
+        res.status(404).json("not_found")
+    }
+})
+
+
+
 
 app.get('/api/subreddits/all', async (req, res) => {
     try {
