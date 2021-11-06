@@ -6,20 +6,17 @@ from sklearn.neighbors import NearestNeighbors
 
 pd.options.mode.chained_assignment = None
 
-# Reading the dataframe
+# Reading the dataframes
 dfsubs = pd.read_csv("dfsubs.csv")
-
-
 dflast = pd.read_csv("dflast.csv")
 
-# Removing sparsity from the ratings dataset
+# Removing sparsity from the ratings dataset -- ignore zero values and create new data structure
 csr_data = csr_matrix(dflast.values)
 dflast.reset_index(inplace=True)
 
 # Using K-Nearest Neighbors as a similarity metric with cosine simlarity
-knn = NearestNeighbors(metric='cosine', algorithm='brute', n_neighbors=20, n_jobs=-1)
+knn = NearestNeighbors(metric='cosine', n_neighbors=20)
 knn.fit(csr_data)
-
 
 # Defining subreddit recommender function
 def subreddit_recommender(sub_name):
@@ -41,4 +38,3 @@ def subreddit_recommender(sub_name):
         return recomandedDf
     else:
         return "No subreddits found. Please check your input"
-
