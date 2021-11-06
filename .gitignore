@@ -106,3 +106,5 @@ dist
 
 *.pdf
 dataset/
+
+*.csv
