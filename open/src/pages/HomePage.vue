@@ -1,5 +1,5 @@
 <template>
-  <q-page class="constrain q-pa-md bg-image">
+  <q-page class="constrain q-pa-md ">
     <div class="row q-col-gutter-lg">
       <div class="col-12 col-sm-8">
         
@@ -227,11 +227,8 @@ export default {
 };
 </script>
 
-<style lang="sass">
-.bg-image
-  background-image: url(../assets/topography.svg)
-  background-size: contain
-  background-color: #f0f4ef
+<style lang="sass" scoped>
+
 
 .glass
   backdrop-filter: blur(16px) saturate(180%)

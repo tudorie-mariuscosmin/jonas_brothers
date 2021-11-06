@@ -1,6 +1,6 @@
 <template>
   <q-page class="bg-image flex flex-center">
-    <div>
+    <div class="card-login-container">
       <q-card class="login-card transparent" flat bordered>
         <h3 class="q-ma-lg text-merienda-one">
           strive
@@ -10,7 +10,7 @@
           <q-tab label="Register" name="two" />
         </q-tabs>
 
-        <q-tab-panels v-model="tab" animated>
+        <q-tab-panels v-model="tab" animated class="transparent">
           <q-tab-panel name="one">
             <q-input v-model="login.email" type="email" label="Email" />
             <q-input
@@ -147,8 +147,8 @@ export default {
    */
 
 .bg-image
-  background: rgb(2,0,36)
-  background: radial-gradient(circle, rgba(2,0,36,0.6054796918767507) 0%, rgba(151,185,221,1) 0%, rgba(224,183,159,1) 100%)
+  background-image: url("../assets/blob-scene-haikei.svg")
+  background-size: cover
 
 .card 
   backdrop-filter: blur(16px) saturate(180%)
@@ -157,6 +157,9 @@ export default {
   border-radius: 12px
   border: 1px solid rgba(255, 255, 255, 0.125)
 
+.card-login-container
+  min-width: 35%
+  text-align: center
 
 .titleN
   margin:0
