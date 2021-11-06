@@ -2,8 +2,10 @@ import pandas as pd
 pd.options.mode.chained_assignment = None
 
 df = pd.read_csv("reddit_data.csv");
-
+# drop datetime column => not useful
 df.drop(['utc'], inplace=True, axis=1)
+
+# finding each user's total number of comments for each subreddit
 dftot = df.groupby(['username', 'subreddit']).size().reset_index(name="tot_comments")
 
 # Finding each user's max number of comments for all subreddits
@@ -11,7 +13,6 @@ dfmax = dftot.groupby(['username'])['tot_comments'].max().reset_index(name="max_
 
 # Merging total and max comments onto new dataframe
 dfnew = pd.merge(dftot, dfmax, on='username', how='left')
-
 
 # Calculate a user's subreddit rating based on total and max comments
 dfnew['rating'] = dfnew['tot_comments'] / dfnew['max_comments'] * 10
@@ -38,7 +39,7 @@ dfsubs.reset_index(drop=True, inplace=True)
 # # Create user id from index
 dfsubs['sub_id'] = dfsubs.index + 1
 
-
+# merging user id onto dataframe, moving position
 dfnew = pd.merge(dfnew, dfusers, on='username', how='left')
 move_pos = dfnew.pop('user_id')
 dfnew.insert(1, 'user_id', move_pos)
@@ -50,7 +51,8 @@ dfnew.insert(3, 'sub_id', move_pos)
 
 
 
-
+# similarity matrix
+# create new dataframe
 dfnum = dfnew
 
 # Drop non-numerical columns
@@ -59,7 +61,7 @@ dfnew.drop(['username', 'subreddit', 'tot_comments', 'max_comments'], inplace=Tr
 # Pivot dataframe into a matrix of total ratings for users and subs
 dfrat = dfnum.pivot(index='sub_id', columns='user_id', values='rating')
 
-# Replace all null values with 0
+# Replace all null values with 0 -- null values are subreddits on which user has no interaction
 dfrat.fillna(0, inplace=True)
 
 # Calculating number of users commenting per sub
@@ -70,7 +72,7 @@ num_subs = dfnum.groupby('user_id')['rating'].agg('count')
 
 # Limiting dataframe to only subreddits with 100 or more commenting users
 dflast = dfrat.loc[num_users[num_users > 100].index, :]
-# print(len(dflast))
+
 # Limiting dataframe to only users following 10 or more subs
 dflast = dflast.loc[:, num_subs[num_subs > 10].index]
 
