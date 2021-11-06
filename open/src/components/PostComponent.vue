@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-card
-      class="my-card q-mb-md transparent"
+      class="my-card q-mb-md"
       flat
       bordered
     >
@@ -102,11 +102,4 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
-.my-card
-  backdrop-filter: blur(16px) saturate(180%)
-  -webkit-backdrop-filter: blur(16px) saturate(180%)
-  background-color: rgba(17, 25, 40, 0.75)
-  border-radius: 12px
-  border: 1px solid rgba(255, 255, 255, 0.125)
 </style>
