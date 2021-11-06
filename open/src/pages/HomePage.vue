@@ -97,7 +97,7 @@
 
 
     <q-page-sticky  position="bottom-right"  :offset="[18, 18]">
-        <q-btn round class="glass transparent" fab icon="eva-flash-outline" color="accent" />
+        <q-btn round class="glass transparent" fab icon="eva-flash-outline" outline style="color: #EE6123 ;" />
     </q-page-sticky>
   </q-page>
 </template>

@@ -38,48 +38,9 @@
             <!-- {{ post.date | niceDate }} -->
           </div>
         </q-card-section>
-        <q-space />
-        <div>
-          <q-btn
-            @click="onRecipeClick(post)"
-            class="q-ma-md"
-            round
-            unelevated
-            size="16px"
-            color="primary"
-            icon="eva-file-text-outline"
-            text-color="black"
-          />
-        </div>
       </q-card-section>
     </q-card>
-    <q-dialog v-model="dialogRecipe">
-      <q-card class="dialogBox">
-        <q-card-section class="row">
-          <div class="q-pr-lg text-h6">
-            {{ selectedPost.caption }}
-          </div>
-          <q-space />
-          <q-btn v-close-popup dense flat rounded icon="close" />
-        </q-card-section>
-        <q-card-section>
-          <div v-html="selectedPost.recipe"></div>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn
-            class="q-ma-sm"
-            round
-            unelevated
-            size="16px"
-            text-color="black"
-            color="primary"
-            label="OK"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+   
   </div>
 </template>
 
