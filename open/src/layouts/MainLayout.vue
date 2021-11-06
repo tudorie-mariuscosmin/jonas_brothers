@@ -1,11 +1,12 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header class="bg-white text-grey-10" bordered>
-      <q-toolbar class="constrain">
+  <q-layout class="bg-image" view="lHh Lpr lFf">
+    <q-header class=" text-grey-10 glass transparent" bordered>
+      <q-toolbar class="constrain ">
         <q-btn
-          class="large-screen-only q-mr-sm"
-          icon="eva-flash-outline"
+          class="q-pr-sm"
+          icon="eva-person-outline"
           size="18px"
+          to="/initial"
           dense
           flat
           round
@@ -23,7 +24,7 @@
           flat
           round
         />
-        <q-separator vertical spaced />
+        <q-separator class="large-screen-only" vertical spaced />
         <q-btn
           @click="logout()"
           icon="eva-log-out-outline"
@@ -87,6 +88,18 @@ export default {
 </script>
 
 <style lang="sass">
+.glass
+  backdrop-filter: blur(16px) saturate(180%)
+  -webkit-backdrop-filter: blur(16px) saturate(180%)
+  background-color: rgba(17, 25, 40, 0.75)
+  border-radius: 12px
+  border: 1px solid rgba(255, 255, 255, 0.125)
+
+.bg-image
+  background-image: url(../assets/topography.svg)
+  background-size: contain
+  background-color: #f0f4ef
+
 .titleN
   margin:0
   padding:0 0.3em
