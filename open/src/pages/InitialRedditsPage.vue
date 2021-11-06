@@ -11,7 +11,12 @@
         q-gutter-md q-gutter-y-lg
       "
     >
-      <subreddit-bubble v-for="(sub, index) in subs" :key="index" :sub="sub" />
+      <subreddit-bubble
+        v-for="(sub, index) in subs"
+        :key="index"
+        :sub="sub"
+        @click="() => handleClick(sub)"
+      />
     </div>
     <q-inner-loading
       :showing="isLoading"
@@ -46,8 +51,17 @@ export default {
     }
   },
   methods: {
-    handleClick(sub) {
+    async handleClick(sub) {
       if (sub.isFollowed) {
+        await this.$axios.delete(`/api/subreddits/${sub.name}`);
+        sub.isFollowed = false;
+        this.subs = [...this.subs];
+      } else {
+        await this.$axios.post(`/api/subreddits`, {
+          ...sub,
+        });
+        sub.isFollowed = true;
+        this.subs = [...this.subs];
       }
     },
   },
