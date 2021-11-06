@@ -4,83 +4,12 @@
       <div class="col-12 col-sm-8">
         
         <template v-if="!loadingPosts && posts.length">
-          <q-card
+          <post 
             v-for="post in posts"
             :key="post.id"
-            class="my-card q-mb-md"
-            flat
-            bordered
-          >
-            <q-item>
-              <q-item-section avatar>
-                <q-avatar
-                  v-if="post.userId === loggedInUser.id"
-                  color="primary"
-                  text-color="black"
-                  icon="eva-person-outline"
-                />
-                <q-avatar
-                  v-else
-                  color="grey-3"
-                  text-color="black"
-                  icon="eva-person-outline"
-                />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label class="text-bold">
-                  <!-- {{ getUserById(post.userId).name }} --> USER ID
-                </q-item-label>
-                <q-item-label caption>{{ post.location }} </q-item-label>
-              </q-item-section>
-              <q-space />
-              <q-btn
-                v-if="isUsersPost(post)"
-                @click="onDeleteClick(post)"
-                class="q-mr-sm"
-                color="negative"
-                dense
-                flat
-                rounded
-                icon="eva-trash-2-outline"
-              />
-              <q-btn
-                v-if="isUsersPost(post)"
-                @click="onUpdateClick(post)"
-                dense
-                flat
-                rounded
-                icon="eva-edit-outline"
-              />
-            </q-item>
-
-            <q-separator />
-
-            <img :src="post.imageUrl" />
-            <q-card-section horizontal>
-              <q-card-section>
-                <div>
-                  {{ post.caption }}
-                </div>
-                <div class="text-caption text-grey">
-                  {{ post.date }} <!-- {{ post.date | niceDate }} -->
-                </div>
-              </q-card-section>
-              <q-space />
-              <div>
-                <q-btn
-                  @click="onRecipeClick(post)"
-                  class="q-ma-md"
-                  round
-                  unelevated
-                  size="16px"
-                  color="primary"
-                  icon="eva-file-text-outline"
-                  text-color="black"
-                />
-              </div>
-            </q-card-section>
-          </q-card>
+            :post="post"
+            :selectedPostInfo="selectedPostInfo"
+            :posts="posts"></post> 	 
         </template>
         <template v-else-if="!loadingPosts && !posts.length">
           <h5 class="text-center text-grey">
@@ -166,75 +95,8 @@
       </q-card>
     </q-dialog>
 
-    <q-dialog v-model="dialogDelete">
-      <q-card>
-        <q-card-section class="row">
-          <div class="q-pr-lg text-h6">
-            Delete post
-          </div>
-          <q-space />
-          <q-btn v-close-popup dense flat rounded icon="close" />
-        </q-card-section>
-        <q-card-section class="q-pt-none">
-          Are you sure you want to delete this post?
-        </q-card-section>
 
-        <q-card-actions align="right">
-          <q-btn
-            @click="deletePost(selectedPostInfo.id)"
-            type="submit"
-            class="q-ma-sm"
-            round
-            unelevated
-            size="16px"
-            text-color="black"
-            color="primary"
-            label="yes"
-            v-close-popup
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
-    <q-dialog v-model="dialogUpdate">
-      <q-card class="dialogBox">
-        <q-card-section class="row">
-          <div class="q-pr-lg text-h6">
-            Edit post
-          </div>
-          <q-space />
-          <q-btn v-close-popup dense flat rounded icon="close" />
-        </q-card-section>
-        <form>
-          <q-card-section class="q-pa-lg">
-            <div class="row q-mb-lg">
-              <q-input
-                v-model="selectedPostInfo.caption"
-                label="Caption"
-                class="col"
-                clearable
-              />
-            </div>
-            <div class="row q-mb-lg">
-              <q-input
-                v-model="selectedPostInfo.location"
-                label="Location"
-                class="col"
-                clearable
-              />
-            </div>
-            <div class="row q-mb-lg">
-              <q-input
-                v-model="selectedPostInfo.recipe"
-                label="Recipe"
-                class="col"
-                clearable
-              />
-            </div>
-          </q-card-section>
-        </form>
-      </q-card>
-    </q-dialog>
+  
   </q-page>
 </template>
 
@@ -248,9 +110,22 @@ export default {
   data() {
     return {
       dialogRecipe: false,
-      dialogDelete: false,
-      dialogUpdate: false,
-      posts: [],
+      posts: [{
+          id: 1,
+          userId: 1,
+          location: "london",
+          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
+          caption: "lala",
+          recipe: "lala"
+        },
+        {
+          id: 2,
+          userId: 1,
+          location: "london",
+          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
+          caption: "lala",
+          recipe: "lala"
+        }],
       loadingPosts: false,
       selectedPostInfo: {},
       loggedInUser: {}
@@ -262,40 +137,6 @@ export default {
   methods: {
     puladecal() {
       // return this.getUserById("LKt86Icm0FfGs8SqqjGcFonf0Om1");
-    },
-    onUpdateClick(p) {
-      this.dialogUpdate = true;
-      this.selectedPostInfo = this.posts.find(post => post.id === p.id);
-      console.log(this.selectedPostInfo);
-    },
-    onDeleteClick(p) {
-      this.dialogDelete = true;
-      this.selectedPostInfo = this.posts.find(post => post.id === p.id);
-      console.log(this.selectedPostInfo);
-    },
-    deletePost(postId) {
-      // this.loadingPosts = true;
-      // this.$axios
-      //   .delete(`${process.env.API}/api/posts/${this.selectedPostInfo.id}`)
-      //   .then(response => {
-      //     this.$q.dialog({
-      //       title: "Ok",
-      //       message: "Post deleted"
-      //     });
-      //     this.loadingPosts = false;
-      //     this.getPosts();
-      //   })
-      //   .catch(err => {
-      //     this.$q.dialog({
-      //       title: "Error",
-      //       message: "Could not download posts."
-      //     });
-      //     this.loadingPosts = false;
-      //   });
-    },
-    isUsersPost(post) {
-      if (post.userId === LocalStorage.getItem("userId")) return true;
-      else return false;
     },
     onRecipeClick(p) {
       this.dialogRecipe = true;
@@ -375,6 +216,9 @@ export default {
       return date.formatDate(value, "MMMM D h:mmA");
     }
   },
+  components: {
+			'post' : require('components/PostComponent.vue').default
+		},
   created() {
     this.getPosts();
   },
