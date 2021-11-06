@@ -11,10 +11,8 @@
           round
         />
         <q-separator class="large-screen-only" vertical spaced />
-        <q-toolbar-title class="text-supermarcado-one">
-          Open
-          <p class="titleN">N'</p>
-          Open
+        <q-toolbar-title class="text-merienda-one">
+          strive
         </q-toolbar-title>
         <q-btn
           class="large-screen-only"
@@ -36,7 +34,7 @@
         />
       </q-toolbar>
     </q-header>
-    <q-footer class="bg-white small-screen-only" bordered>
+    <!-- <q-footer class="bg-white small-screen-only" bordered>
       <q-tabs
         class="text-grey-10"
         active-color="black"
@@ -45,7 +43,7 @@
         <q-route-tab to="/" icon="eva-home-outline" />
         <q-route-tab to="/recipe" icon="eva-flash-outline" />
       </q-tabs>
-    </q-footer>
+    </q-footer> -->
 
     <q-page-container class="bg-grey-1">
       <router-view />

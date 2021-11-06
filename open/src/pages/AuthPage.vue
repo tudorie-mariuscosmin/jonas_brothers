@@ -1,11 +1,9 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="bg-image flex flex-center">
     <div>
-      <q-card class="login-card" flat bordered>
-        <h3 class="q-ma-lg text-supermarcado-one">
-          Open
-          <p class="titleN">N'</p>
-          Open
+      <q-card class="login-card transparent" flat bordered>
+        <h3 class="q-ma-lg text-merienda-one">
+          strive
         </h3>
         <q-tabs v-model="tab">
           <q-tab label="Login" name="one" />
@@ -146,6 +144,19 @@ export default {
  *  background-size: contain;
  *  background-color: #f0f4ef;
  *}
+   */
+
+.bg-image
+  background: rgb(2,0,36)
+  background: radial-gradient(circle, rgba(2,0,36,0.6054796918767507) 0%, rgba(151,185,221,1) 0%, rgba(224,183,159,1) 100%)
+
+.card 
+  backdrop-filter: blur(16px) saturate(180%)
+  -webkit-backdrop-filter: blur(16px) saturate(180%)
+  background-color: rgba(17, 25, 40, 0.75)
+  border-radius: 12px
+  border: 1px solid rgba(255, 255, 255, 0.125)
+
 
 .titleN
   margin:0
@@ -162,6 +173,10 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
   padding: 2vh 12vh
   height: 80vh
+  backdrop-filter: blur(16px) saturate(180%)
+  -webkit-backdrop-filter: blur(16px) saturate(180%)
+  background-color: rgba(17, 25, 40, 0.75)
+  border-radius: 12px
 
 .q-field, .q-field--standout .q-field__control
   margin-bottom: 10px

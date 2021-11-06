@@ -1,5 +1,5 @@
 <template>
-  <q-page class="constrain q-pa-md">
+  <q-page class="constrain q-pa-md bg-image">
     <div class="row q-col-gutter-lg">
       <div class="col-12 col-sm-8">
         
@@ -96,7 +96,9 @@
     </q-dialog>
 
 
-  
+    <q-page-sticky  position="bottom-right"  :offset="[18, 18]">
+        <q-btn round class="glass transparent" fab icon="eva-flash-outline" color="accent" />
+    </q-page-sticky>
   </q-page>
 </template>
 
@@ -110,22 +112,7 @@ export default {
   data() {
     return {
       dialogRecipe: false,
-      posts: [{
-          id: 1,
-          userId: 1,
-          location: "london",
-          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
-          caption: "lala",
-          recipe: "lala"
-        },
-        {
-          id: 2,
-          userId: 1,
-          location: "london",
-          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
-          caption: "lala",
-          recipe: "lala"
-        }],
+      posts: [],
       loadingPosts: false,
       selectedPostInfo: {},
       loggedInUser: {}
@@ -176,6 +163,14 @@ export default {
           imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
           caption: "lala",
           recipe: "lala"
+        },
+        {
+          id: 3,
+          userId: 1,
+          location: "london",
+          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
+          caption: "lala",
+          recipe: "ppp"
         }
       ];
       // console.log("logged in user id: " + LocalStorage.getItem("userId"));
@@ -233,6 +228,18 @@ export default {
 </script>
 
 <style lang="sass">
+.bg-image
+  background-image: url(../assets/topography.svg)
+  background-size: contain
+  background-color: #f0f4ef
+
+.glass
+  backdrop-filter: blur(16px) saturate(180%)
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important
+  background-color: rgba(17, 25, 40, 0.75)
+  border: 1px solid rgba(255, 255, 255, 0.125)
+
+
 .sortButton
   border: 2px solid $grey-10
   border-radius: 5px
