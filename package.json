@@ -20,10 +20,13 @@
   "dependencies": {
     "axios": "^0.24.0",
     "babel-runtime": "^6.26.0",
+    "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "express": "^4.17.1",
+    "lodash": "^4.17.21",
     "mongoose": "^6.0.12",
     "nodemon": "^2.0.14",
-    "pandas-js": "^0.2.4"
+    "pandas-js": "^0.2.4",
+    "sentiment": "^5.0.2"
   }
 }
