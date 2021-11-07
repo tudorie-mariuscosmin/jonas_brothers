@@ -95,6 +95,7 @@
 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn
+        @click="() => handleClick()"
         round
         class="glass transparent"
         fab
@@ -130,6 +131,19 @@ export default {
       this.dialogRecipe = true;
       this.selectedPostInfo = this.posts.find((post) => post.id === p.id);
       console.log(this.selectedPostInfo);
+    },
+    handleClick() {
+      this.$axios
+        .get("http://localhost:8080/api/recommendations")
+        .then((response) => {
+          this.posts = [...this.posts, ...response.data];
+        })
+        .catch((err) => {
+          this.$q.dialog({
+            title: "Error",
+            message: "Could not download posts.",
+          });
+        });
     },
     getPostsByLocation() {
       // this.loadingPosts = true;

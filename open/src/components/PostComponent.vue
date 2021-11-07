@@ -8,11 +8,9 @@
     >
       <q-item>
         <q-item-section avatar>
-          <q-avatar
-            color="grey-3"
-            text-color="black"
-            icon="eva-person-outline"
-          />
+          <q-avatar size="40px">
+            <q-img fit="contain" v-if="post.subPhoto" :src="post.subPhoto" />
+          </q-avatar>
         </q-item-section>
 
         <q-item-section>
@@ -20,14 +18,14 @@
             <!-- {{ getUserById(post.userId).name }} -->
             {{post.subreddit}}
           </q-item-label>
-          <q-item-label caption>{{ post.location }} </q-item-label>
+          <p>Posted by {{post.author_fullname}}</p>
+          <q-item-label caption>{{ post.title }} </q-item-label>
         </q-item-section>
-        
       </q-item>
 
       <q-separator />
 
-      <img :src="post.imageUrl" />
+      <img v-if="post.photo" :src="post.photo" />
       <q-card-section horizontal>
         <q-card-section>
           <div>
