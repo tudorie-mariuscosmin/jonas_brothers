@@ -63,7 +63,9 @@ app.get('/api/recommendations', async (req, res) => {
                         sentimentScore: sentimentScore,
                         polarizationDistance: polarizationDistance,
                         engagementRate: engagementRate,
-                        author_fullname: data.author_fullname
+                        author_fullname: data.author_fullname,
+                        ups: data.ups,
+                        downs: data.downs
                     }
                 })
                 posts.push(...post)
@@ -99,7 +101,9 @@ app.get('/api/posts', async (req, res) => {
                         photo: data.url_overridden_by_dest || null,
                         isRecommended: false,
                         subPhoto: sub.photo,
-                        author_fullname: data.author_fullname
+                        author_fullname: data.author_fullname,
+                        ups: data.ups,
+                        downs: data.downs
                     }
                 })
                 posts.push(...post)
