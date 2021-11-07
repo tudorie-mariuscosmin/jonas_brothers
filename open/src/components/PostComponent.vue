@@ -49,20 +49,22 @@
           <!-- {{ post.date | niceDate }} -->
         </div>
       </q-card-section>
-      <div class="row align-center justify-around full-width">
-        <div class="row align-center content-center">
-          <q-icon size="md" name="eva-arrow-up-outline" />
-          <div>
-            <div class="column full-height q-mt-xs">
-              {{ post.ups }}
+      <div class="row align-center justify-between full-width">
+        <div class="row full-widt">
+          <div class="row align-center content-center">
+            <q-icon size="md" name="eva-arrow-up-outline" />
+            <div>
+              <div class="column full-height q-mt-xs">
+                {{ post.ups }}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row align-center content-center">
-          <q-icon size="md" name="eva-arrow-down-outline" />
-          <div>
-            <div class="column full-height q-mt-xs">
-              {{ post.downs }}
+          <div class="row align-center content-center">
+            <q-icon size="md" name="eva-arrow-down-outline" />
+            <div>
+              <div class="column full-height q-mt-xs">
+                {{ post.downs }}
+              </div>
             </div>
           </div>
         </div>
