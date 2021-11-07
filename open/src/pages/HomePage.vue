@@ -48,14 +48,14 @@
       <div class="col-4 large-screen-only">
         <q-item class="fixed">
           <q-item-section avatar>
-      <q-fab
-        :loading="loadingBtn"
-        @click="() => handleClick()"
-        class="glass transparent"
-        square
-        icon="eva-flash-outline"
-        style="color: #ee6123"
-      />
+            <q-fab
+              :loading="loadingBtn"
+              @click="() => handleClick()"
+              class="glass transparent"
+              square
+              icon="eva-flash-outline"
+              style="color: #ee6123"
+            />
           </q-item-section>
 
           <q-item-section>
@@ -95,7 +95,11 @@
       </q-card>
     </q-dialog>
 
-    <q-page-sticky class="small-screen-only" position="bottom-right" :offset="[18, 18]">
+    <q-page-sticky
+      class="small-screen-only"
+      position="bottom-right"
+      :offset="[18, 18]"
+    >
       <q-btn
         padding="md"
         :loading="loadingBtn"
@@ -200,7 +204,9 @@ export default {
       this.$axios
         .get("http://localhost:8080/api/posts")
         .then((response) => {
-          this.posts = response.data;
+          const results = response.data;
+          results.sort(() => Math.random() - 0.5);
+          this.posts = results;
           this.loadingPosts = false;
         })
         .catch((err) => {

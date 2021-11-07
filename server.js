@@ -53,7 +53,7 @@ app.get('/api/recommendations', async (req, res) => {
                     // polarization distance -- should be as small as possible
                     const polarizationDistance = Math.abs(0.5 - polarizationScore);
                     // engagement rate -> comments per post over number of subscribers -> the bigger, the better
-                    const engagementRate = data.num_comments/subredditSubscribersNo;
+                    const engagementRate = data.num_comments / subredditSubscribersNo;
                     return {
                         subreddit: data.subreddit,
                         title: data.title,
@@ -77,7 +77,7 @@ app.get('/api/recommendations', async (req, res) => {
         }
 
         const sortedData = _.orderBy(posts, ['sentimentScore', 'polarizationDistance', 'engagementRate'],
-         ['desc', 'asc', 'desc']);
+            ['desc', 'asc', 'desc']);
         res.json(sortedData)
 
     } catch (err) {
