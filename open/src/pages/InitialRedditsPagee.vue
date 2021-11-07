@@ -1,6 +1,6 @@
 <template>
   <q-page class="constrain q-pa-md">
-    <q-table
+    <!-- <q-table
       title="Choose Reddits"
       :rows="rows"
       :columns="columns"
@@ -42,7 +42,7 @@
           </q-card>
         </div>
       </template>
-    </q-table>
+    </q-table> -->
 	<q-chip v-for="reddit in selected" :key="reddit.name"
             :reddit="reddit">
         <q-avatar>
