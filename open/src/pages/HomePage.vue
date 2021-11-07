@@ -137,7 +137,9 @@ export default {
       this.$axios
         .get("http://localhost:8080/api/recommendations")
         .then((response) => {
-          this.posts = [...this.posts, ...response.data];
+          let result = [...this.posts, ...response.data];
+          result.sort(() => Math.random() - 0.5);
+          this.posts = [...result];
           this.loadingBtn = false;
         })
         .catch((err) => {
