@@ -18,7 +18,7 @@
         <q-item-section>
           <q-item-label class="text-bold">
             <!-- {{ getUserById(post.userId).name }} -->
-            USER ID
+            {{post.subreddit}}
           </q-item-label>
           <q-item-label caption>{{ post.location }} </q-item-label>
         </q-item-section>

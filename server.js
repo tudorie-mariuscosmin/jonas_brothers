@@ -1,10 +1,15 @@
 const express = require("express");
 const axios = require("axios");
 const connectDb = require("./db");
+const cors = require('cors');
 const app = express()
 app.use(express.json())
+app.use(cors());
 connectDb()
 const Subreddit = require('./Subreddit')
+const Sentiment = require('sentiment');
+const sentiment = new Sentiment();
+const _ = require('lodash');
 
 app.get('/api/recommendations', async (req, res) => {
 
@@ -36,14 +41,28 @@ app.get('/api/recommendations', async (req, res) => {
         for (result of results) {
             try {
                 const { data: { data: { children } } } = await axios.get(`https://www.reddit.com/r/${result.subreddit}/top.json?limit=3`)
+                const subredditSubscribersNo = children[0].data.subreddit_subscribers;
                 let post = children.map(child => {
                     const { data } = child
+
+                    // average sentiment score ( ranges between -5 and 5) -> the bigger, the better
+                    const sentimentScore = sentiment.analyze(data.title).score;
+                    // for different opinions upvote ratio should be as close as possible to 0.5
+                    const polarizationScore = data.upvote_ratio;
+                    // polarization distance -- should be as small as possible
+                    const polarizationDistance = Math.abs(0.5 - polarizationScore);
+                    // engagement rate -> comments per post over number of subscribers -> the bigger, the better
+                    const engagementRate = data.num_comments/subredditSubscribersNo;
+                    
                     return {
                         subreddit: data.subreddit,
                         title: data.title,
                         photo: data.url_overridden_by_dest,
                         isRecommended: true,
-                        subPhoto: result.subPhoto
+                        subPhoto: result.subPhoto,
+                        sentimentScore: sentimentScore,
+                        polarizationDistance: polarizationDistance,
+                        engagementRate: engagementRate
                     }
                 })
                 posts.push(...post)
@@ -54,8 +73,9 @@ app.get('/api/recommendations', async (req, res) => {
 
         }
 
-
-        res.json(posts)
+        const sortedData = _.orderBy(posts, ['sentimentScore', 'polarizationDistance', 'engagementRate'],
+         ['desc', 'asc', 'desc']);
+        res.json(sortedData)
 
     } catch (err) {
         console.log(err)

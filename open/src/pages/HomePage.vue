@@ -147,47 +147,47 @@ export default {
       //   });
     },
     getPosts() {
-      return this.posts = [
-        {
-          id: 1,
-          userId: 1,
-          location: "london",
-          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
-          caption: "lala",
-          recipe: "lala"
-        },
-        {
-          id: 2,
-          userId: 1,
-          location: "london",
-          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
-          caption: "lala",
-          recipe: "lala"
-        },
-        {
-          id: 3,
-          userId: 1,
-          location: "london",
-          imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
-          caption: "lala",
-          recipe: "ppp"
-        }
-      ];
+      // return this.posts = [
+      //   {
+      //     id: 1,
+      //     userId: 1,
+      //     location: "london",
+      //     imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
+      //     caption: "lala",
+      //     recipe: "lala"
+      //   },
+      //   {
+      //     id: 2,
+      //     userId: 1,
+      //     location: "london",
+      //     imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
+      //     caption: "lala",
+      //     recipe: "lala"
+      //   },
+      //   {
+      //     id: 3,
+      //     userId: 1,
+      //     location: "london",
+      //     imageUrl: "https://i.imgur.com/rekgIHP.jpeg",
+      //     caption: "lala",
+      //     recipe: "ppp"
+      //   }
+      // ];
       // console.log("logged in user id: " + LocalStorage.getItem("userId"));
       // this.loadingPosts = true;
-      // this.$axios
-      //   .get(`${process.env.API}/api/posts`)
-      //   .then(response => {
-      //     this.posts = response.data;
-      //     this.loadingPosts = false;
-      //   })
-      //   .catch(err => {
-      //     this.$q.dialog({
-      //       title: "Error",
-      //       message: "Could not download posts."
-      //     });
-      //     this.loadingPosts = false;
-      //   });
+      this.$axios
+        .get('http://localhost:8080/api/posts')
+        .then(response => {
+          this.posts = response.data;
+          this.loadingPosts = false;
+        })
+        .catch(err => {
+          this.$q.dialog({
+            title: "Error",
+            message: "Could not download posts."
+          });
+          this.loadingPosts = false;
+        });
     },
     getLoggedInUser() {
     //   this.$axios
