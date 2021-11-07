@@ -1,20 +1,22 @@
 <template>
   <q-layout class="bg-image" view="lHh Lpr lFf">
-    <q-header class=" text-grey-10 glass transparent" bordered>
-      <q-toolbar class="constrain ">
+    <q-header class="text-grey-10 glass transparent" bordered>
+      <q-toolbar class="constrain">
         <q-btn
           class="q-pr-sm"
-          icon="eva-person-outline"
+          :icon="
+            $route.path === '/initial'
+              ? 'eva-home-outline'
+              : 'eva-person-outline'
+          "
           size="18px"
-          to="/initial"
+          :to="$route.path === '/initial' ? '/' : '/initial'"
           dense
           flat
           round
         />
         <q-separator class="large-screen-only" vertical spaced />
-        <q-toolbar-title class="text-merienda-one">
-          strive
-        </q-toolbar-title>
+        <q-toolbar-title class="text-merienda-one"> strive </q-toolbar-title>
         <q-btn
           class="large-screen-only"
           icon="eva-home-outline"
@@ -53,7 +55,6 @@
 </template>
 
 <script>
-import { LocalStorage } from "quasar";
 export default {
   name: "MainLayout",
   data() {
@@ -82,8 +83,8 @@ export default {
       //       icon: "report_problem"
       //     });
       //   });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -101,12 +102,12 @@ export default {
   background-color: #f0f4ef
 
 .titleN
-  margin:0
-  padding:0 0.3em
+  margin: 0
+  padding: 0 0.3em
   display: inline-block
   color: black
   background-color: $primary
-  border-radius:100%
+  border-radius: 100%
 
 .q-toolbar
   @media (min-width: $breakpoint-sm-min)
