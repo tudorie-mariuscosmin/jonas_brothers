@@ -97,7 +97,7 @@
 
 
     <q-page-sticky  position="bottom-right"  :offset="[18, 18]">
-        <q-btn round class="glass transparent" fab icon="eva-flash-outline" outline style="color: #EE6123 ;" />
+        <q-btn @click="() => handleClick()" round class="glass transparent" fab icon="eva-flash-outline" outline style="color: #EE6123 ;" />
     </q-page-sticky>
   </q-page>
 </template>
@@ -129,6 +129,19 @@ export default {
       this.dialogRecipe = true;
       this.selectedPostInfo = this.posts.find(post => post.id === p.id);
       console.log(this.selectedPostInfo);
+    },
+    handleClick() {
+      this.$axios
+        .get('http://localhost:8080/api/recommendations')
+        .then(response => {
+          this.posts = [...this.posts, ...response.data];
+        })
+        .catch(err => {
+          this.$q.dialog({
+            title: "Error",
+            message: "Could not download posts."
+          });
+        });
     },
     getPostsByLocation() {
       // this.loadingPosts = true;

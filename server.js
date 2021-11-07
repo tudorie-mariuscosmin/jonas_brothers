@@ -62,7 +62,8 @@ app.get('/api/recommendations', async (req, res) => {
                         subPhoto: result.subPhoto,
                         sentimentScore: sentimentScore,
                         polarizationDistance: polarizationDistance,
-                        engagementRate: engagementRate
+                        engagementRate: engagementRate,
+                        author_fullname: data.author_fullname
                     }
                 })
                 posts.push(...post)
@@ -97,7 +98,8 @@ app.get('/api/posts', async (req, res) => {
                         title: data.title,
                         photo: data.url_overridden_by_dest || null,
                         isRecommended: false,
-                        subPhoto: sub.photo
+                        subPhoto: sub.photo,
+                        author_fullname: data.author_fullname
                     }
                 })
                 posts.push(...post)
