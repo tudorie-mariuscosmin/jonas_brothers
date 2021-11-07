@@ -249,7 +249,7 @@ export default {
     left: 0;
     margin: 0;
     padding: 0;
-    background: #ffae70;
+    background: #fff;
     overflow: hidden;
 }
 .background li {
@@ -258,7 +258,7 @@ export default {
     list-style: none;
     width: 20px;
     height: 20px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(238,97,35, 0.7);
     animation: animate 15s linear infinite;
 }
 
