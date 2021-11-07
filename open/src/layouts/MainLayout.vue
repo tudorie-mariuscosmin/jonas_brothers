@@ -1,5 +1,5 @@
 <template>
-  <q-layout class="bg-image" view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf">
     <q-header class="text-grey-10 glass transparent" bordered>
       <q-toolbar class="constrain">
         <q-btn
@@ -84,13 +84,8 @@ export default {
   backdrop-filter: blur(16px) saturate(180%)
   -webkit-backdrop-filter: blur(16px) saturate(180%)
   background-color: rgba(17, 25, 40, 0.75)
-  border-radius: 12px
   border: 1px solid rgba(255, 255, 255, 0.125)
 
-.bg-image
-  background-image: url(../assets/topography.svg)
-  background-size: contain
-  background-color: #f0f4ef
 
 .titleN
   margin: 0
@@ -107,8 +102,4 @@ export default {
   font-size: 30px
   @media (max-width: $breakpoint-xs-max)
     text-align: center
-
-.q-footer
-  .q-tab__icon
-    font-size: 30px
 </style>
