@@ -1,12 +1,11 @@
 <template>
   <div>
     <q-card
-      class="my-card q-mb-md"
+      class="my-card q-pa-sm q-mb-lg q-mx-sm transparent"
       flat
-      bordered
       data-aos="fade-right"
     >
-      <q-item>
+      <q-item class="q-pa-none">
         <q-item-section avatar>
           <q-avatar size="40px">
             <q-img fit="contain" v-if="post.subPhoto" :src="post.subPhoto" />
@@ -16,48 +15,50 @@
         <q-item-section>
           <q-item-label class="text-bold">
             <!-- {{ getUserById(post.userId).name }} -->
-            {{post.subreddit}}
+            r/{{ post.subreddit }}
           </q-item-label>
-          <p>Posted by {{post.author_fullname}}</p>
-          <q-item-label caption>{{ post.title }} </q-item-label>
+          <p>Posted by {{ post.author_fullname }}</p>
+          <q-item-label class="text-body1 text-weight-medium"
+            >{{ post.title }}
+          </q-item-label>
         </q-item-section>
       </q-item>
 
-      <q-separator />
-
       <img v-if="post.photo" :src="post.photo" />
       <q-card-section horizontal>
-        <q-card-section>
-          <div>
-            {{ post.caption }}
-          </div>
-          <div class="text-caption text-grey">
-            {{ post.date }}
-            <!-- {{ post.date | niceDate }} -->
-          </div>
-        </q-card-section>
+        <div>
+          {{ post.caption }}
+        </div>
+        <div class="text-caption text-grey">
+          {{ post.date }}
+          <!-- {{ post.date | niceDate }} -->
+        </div>
       </q-card-section>
+      <q-btn flat round color="black" icon="eva-share-outline" />
+      <q-btn flat round color="black" icon="eva-message-circle-outline" />
+      <div class="float-right">
+        <q-btn flat round color="black" icon="eva-bookmark-outline" />
+      </div>
     </q-card>
-   
   </div>
 </template>
 
 <script>
 export default {
-  props: ['post', 'selectedPostInfo','posts'],
+  props: ["post", "selectedPostInfo", "posts"],
   data() {
     return {
       dialogRecipe: false,
-      selectedPost: this.selectedPostInfo
+      selectedPost: this.selectedPostInfo,
     };
   },
   methods: {
     onRecipeClick(p) {
       this.dialogRecipe = true;
-      this.selectedPost = this.posts.find(post => post.id === p.id);
+      this.selectedPost = this.posts.find((post) => post.id === p.id);
       console.log(this.selectedPost);
     },
-  }
+  },
 };
 </script>
 

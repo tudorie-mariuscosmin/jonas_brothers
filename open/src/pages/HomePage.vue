@@ -94,13 +94,12 @@
     </q-dialog>
 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn
+      <q-fab
+        :loading="loadingBtn"
         @click="() => handleClick()"
-        round
         class="glass transparent"
-        fab
+        square
         icon="eva-flash-outline"
-        outline
         style="color: #ee6123"
       />
     </q-page-sticky>
@@ -121,6 +120,7 @@ export default {
       loadingPosts: false,
       selectedPostInfo: {},
       loggedInUser: {},
+      loadingBtn: false,
     };
   },
   computed: {
@@ -133,12 +133,15 @@ export default {
       console.log(this.selectedPostInfo);
     },
     handleClick() {
+      this.loadingBtn = true;
       this.$axios
         .get("http://localhost:8080/api/recommendations")
         .then((response) => {
           this.posts = [...this.posts, ...response.data];
+          this.loadingBtn = false;
         })
         .catch((err) => {
+          this.loadingBtn = false;
           this.$q.dialog({
             title: "Error",
             message: "Could not download posts.",
