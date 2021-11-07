@@ -1,20 +1,18 @@
 <template>
-  <q-page class="constrain q-pa-md ">
+  <q-page class="constrain q-pa-md">
     <div class="row q-col-gutter-lg">
       <div class="col-12 col-sm-8">
-        
         <template v-if="!loadingPosts && posts.length">
-          <post 
+          <post
             v-for="post in posts"
             :key="post.id"
             :post="post"
             :selectedPostInfo="selectedPostInfo"
-            :posts="posts"></post> 	 
+            :posts="posts"
+          ></post>
         </template>
         <template v-else-if="!loadingPosts && !posts.length">
-          <h5 class="text-center text-grey">
-            No posts yet
-          </h5>
+          <h5 class="text-center text-grey">No posts yet</h5>
         </template>
         <template v-else>
           <q-card flat bordered>
@@ -95,9 +93,15 @@
       </q-card>
     </q-dialog>
 
-
-    <q-page-sticky  position="bottom-right"  :offset="[18, 18]">
-        <q-btn round class="glass transparent" fab icon="eva-flash-outline" outline style="color: #EE6123 ;" />
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn
+        round
+        class="glass transparent"
+        fab
+        icon="eva-flash-outline"
+        outline
+        style="color: #ee6123"
+      />
     </q-page-sticky>
   </q-page>
 </template>
@@ -115,19 +119,16 @@ export default {
       posts: [],
       loadingPosts: false,
       selectedPostInfo: {},
-      loggedInUser: {}
+      loggedInUser: {},
     };
   },
   computed: {
     // ...mapGetters(["getUsers", "getUserById"])
   },
   methods: {
-    puladecal() {
-      // return this.getUserById("LKt86Icm0FfGs8SqqjGcFonf0Om1");
-    },
     onRecipeClick(p) {
       this.dialogRecipe = true;
-      this.selectedPostInfo = this.posts.find(post => post.id === p.id);
+      this.selectedPostInfo = this.posts.find((post) => post.id === p.id);
       console.log(this.selectedPostInfo);
     },
     getPostsByLocation() {
@@ -174,46 +175,46 @@ export default {
       //   }
       // ];
       // console.log("logged in user id: " + LocalStorage.getItem("userId"));
-      // this.loadingPosts = true;
+      this.loadingPosts = true;
       this.$axios
-        .get('http://localhost:8080/api/posts')
-        .then(response => {
+        .get("http://localhost:8080/api/posts")
+        .then((response) => {
           this.posts = response.data;
           this.loadingPosts = false;
         })
-        .catch(err => {
+        .catch((err) => {
           this.$q.dialog({
             title: "Error",
-            message: "Could not download posts."
+            message: "Could not download posts.",
           });
           this.loadingPosts = false;
         });
     },
     getLoggedInUser() {
-    //   this.$axios
-    //     .get(`${process.env.API}/api/users/${LocalStorage.getItem("userId")}`)
-    //     .then(response => {
-    //       this.loggedInUser = response.data;
-    //     })
-    //     .catch(err => {
-    //       this.$q.dialog({
-    //         title: "Error",
-    //         message: "Could not download posts."
-    //       });
-    //       this.loadingPosts = false;
-    //     });
-    //   console.log(this.loggedInUser);
+      //   this.$axios
+      //     .get(`${process.env.API}/api/users/${LocalStorage.getItem("userId")}`)
+      //     .then(response => {
+      //       this.loggedInUser = response.data;
+      //     })
+      //     .catch(err => {
+      //       this.$q.dialog({
+      //         title: "Error",
+      //         message: "Could not download posts."
+      //       });
+      //       this.loadingPosts = false;
+      //     });
+      //   console.log(this.loggedInUser);
     },
     // ...mapActions(["fetchUsers"])
   },
   filters: {
     niceDate(value) {
       return date.formatDate(value, "MMMM D h:mmA");
-    }
+    },
   },
   components: {
-			'post' : require('components/PostComponent.vue').default
-		},
+    post: require("components/PostComponent.vue").default,
+  },
   created() {
     this.getPosts();
   },
@@ -223,19 +224,16 @@ export default {
     // if (!LocalStorage.getItem("loggedIn")) {
     //   this.$router.push("/login");
     // }
-  }
+  },
 };
 </script>
 
 <style lang="sass" scoped>
-
-
 .glass
   backdrop-filter: blur(16px) saturate(180%)
   -webkit-backdrop-filter: blur(16px) saturate(180%) !important
   background-color: rgba(17, 25, 40, 0.75)
   border: 1px solid rgba(255, 255, 255, 0.125)
-
 
 .sortButton
   border: 2px solid $grey-10

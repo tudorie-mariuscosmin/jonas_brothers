@@ -17,15 +17,6 @@
         />
         <q-separator class="large-screen-only" vertical spaced />
         <q-toolbar-title class="text-merienda-one"> strive </q-toolbar-title>
-        <q-btn
-          class="large-screen-only"
-          icon="eva-home-outline"
-          size="18px"
-          to="/"
-          dense
-          flat
-          round
-        />
         <q-separator class="large-screen-only" vertical spaced />
         <q-btn
           @click="logout()"
