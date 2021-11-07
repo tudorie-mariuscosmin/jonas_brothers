@@ -34,10 +34,29 @@
           <!-- {{ post.date | niceDate }} -->
         </div>
       </q-card-section>
-      <q-btn flat round color="black" icon="eva-share-outline" />
-      <q-btn flat round color="black" icon="eva-message-circle-outline" />
-      <div class="float-right">
-        <q-btn flat round color="black" icon="eva-bookmark-outline" />
+      <div class="row align-center justify-around full-width">
+        <div class="row align-center content-center">
+          <q-icon size="md" name="eva-arrow-up-outline" />
+          <div>
+            <div class="column full-height q-mt-xs">
+              {{ post.ups }}
+            </div>
+          </div>
+        </div>
+        <div class="row align-center content-center">
+          <q-icon size="md" name="eva-arrow-down-outline" />
+          <div>
+            <div class="column full-height q-mt-xs">
+              {{ post.downs }}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <q-btn flat round color="black" icon="eva-message-circle-outline" />
+          <q-btn flat round color="black" icon="eva-share-outline" />
+          <q-btn flat round color="black" icon="eva-bookmark-outline" />
+        </div>
       </div>
     </q-card>
   </div>

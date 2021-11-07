@@ -94,11 +94,11 @@
     </q-dialog>
 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-fab
+      <q-btn
+        padding="md"
         :loading="loadingBtn"
         @click="() => handleClick()"
         class="glass transparent"
-        square
         icon="eva-flash-outline"
         style="color: #ee6123"
       />
