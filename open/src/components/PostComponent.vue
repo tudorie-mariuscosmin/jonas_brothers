@@ -4,33 +4,29 @@
       class="my-card q-pa-sm q-mb-lg q-mx-sm transparent"
       flat
       data-aos="fade-right"
-      
     >
-    <div class="row">
-      <div class="col-2">
-        <q-item-section avatar>
-          <q-avatar size="40px">
-            <q-img fit="contain" v-if="post.subPhoto" :src="post.subPhoto" />
-          </q-avatar>
-        </q-item-section>
-      </div>
-      <div class="col-10">
-        <q-item-label class="text-bold">
+      <div class="row">
+        <div class="col-2">
+          <q-item-section avatar>
+            <q-avatar size="40px">
+              <q-img fit="contain" v-if="post.subPhoto" :src="post.subPhoto" />
+            </q-avatar>
+          </q-item-section>
+        </div>
+        <div class="col-10">
+          <q-item-label class="text-bold">
             <!-- {{ getUserById(post.userId).name }} -->
             r/{{ post.subreddit }}
           </q-item-label>
           <p>Posted by {{ post.author_fullname }}</p>
+        </div>
       </div>
-    </div>
 
-      
-
-        <q-item-section>
-          
-          <q-item-label class="q-mb-sm text-body1 text-weight-medium"
-            >{{ post.title }}
-          </q-item-label>
-        </q-item-section>
+      <q-item-section>
+        <q-item-label class="q-mb-sm text-body1 text-weight-medium"
+          >{{ post.title }}
+        </q-item-label>
+      </q-item-section>
 
       <img v-if="post.photo" :src="post.photo" />
       <q-card-section horizontal>
@@ -42,20 +38,22 @@
           <!-- {{ post.date | niceDate }} -->
         </div>
       </q-card-section>
-      <div class="row align-center justify-around full-width">
-        <div class="row align-center content-center">
-          <q-icon size="md" name="eva-arrow-up-outline" />
-          <div>
-            <div class="column full-height q-mt-xs">
-              {{ post.ups }}
+      <div class="row align-center justify-between full-width">
+        <div class="row full-widt">
+          <div class="row align-center content-center">
+            <q-icon size="md" name="eva-arrow-up-outline" />
+            <div>
+              <div class="column full-height q-mt-xs">
+                {{ post.ups }}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row align-center content-center">
-          <q-icon size="md" name="eva-arrow-down-outline" />
-          <div>
-            <div class="column full-height q-mt-xs">
-              {{ post.downs }}
+          <div class="row align-center content-center">
+            <q-icon size="md" name="eva-arrow-down-outline" />
+            <div>
+              <div class="column full-height q-mt-xs">
+                {{ post.downs }}
+              </div>
             </div>
           </div>
         </div>
