@@ -26,7 +26,7 @@ app.get('/api/recommendations', async (req, res) => {
                     return {
                         subreddit: Subreddit[key],
                         distance: Distance[key],
-                        subPhoto: element.photo
+                        // subPhoto: element.photo
                     }
                 })
 
@@ -41,6 +41,7 @@ app.get('/api/recommendations', async (req, res) => {
         for (result of results) {
             try {
                 const { data: { data: { children } } } = await axios.get(`https://www.reddit.com/r/${result.subreddit}/top.json?limit=3`)
+                const { data: { data: { icon_img } } } = await axios.get(`https://www.reddit.com/r/${result.subreddit}/about.json`);
                 const subredditSubscribersNo = children[0].data.subreddit_subscribers;
                 let post = children.map(child => {
                     const { data } = child
@@ -53,13 +54,12 @@ app.get('/api/recommendations', async (req, res) => {
                     const polarizationDistance = Math.abs(0.5 - polarizationScore);
                     // engagement rate -> comments per post over number of subscribers -> the bigger, the better
                     const engagementRate = data.num_comments/subredditSubscribersNo;
-                    
                     return {
                         subreddit: data.subreddit,
                         title: data.title,
                         photo: data.url_overridden_by_dest,
                         isRecommended: true,
-                        subPhoto: result.subPhoto,
+                        subPhoto: icon_img,
                         sentimentScore: sentimentScore,
                         polarizationDistance: polarizationDistance,
                         engagementRate: engagementRate,
